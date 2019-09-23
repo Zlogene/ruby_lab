@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="row">
+      <h2>Список квартир</h2>
+    <div class="col">
+      <div class="btn-group" role="group" aria-label="Sorting buttons">
+        <a class="btn btn-secondary" href="/list_of_apartments/sort/district" role="button">По району</a>
+        <a class="btn btn-secondary" href="/list_of_apartments/sort/cost" role="button">По стоимости</a>
+        <a class="btn btn-secondary" href="/list_of_apartments/sort/footage" role="button">По метражу</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card-columns">
+  <% @list_apartments.each do |key, apartment| %>
+    <div class="card bg-light" style="max-width: 24rem;">
+      <div class="card-body">
+        <h5 class="card-title">Квартира</h5>
+        <p class="card-text" id="apartment">
+          <ul>
+            <li>Адрес:</li>
+              <ul>
+                <li><%= "Район: #{apartment.address.district}" %></li>
+                <li><%= "Улица: #{apartment.address.street}" %></li>
+                <li><%= "Дом: #{apartment.address.house}" %></li>
+              </ul>
+            <li><%= "Метраж: #{apartment.footage}" %></li>
+            <li><%= "Вид дома: #{apartment.type_of_house}" %></li>
+            <li><%= "Количество комнат: #{apartment.rooms}" %></li>
+            <li><%= "Этаж: #{apartment.floor}" %></li>
+            <li><%= "Количество этажей: #{apartment.number_of_floors}" %></li>
+            <li><%= "Стоимость: #{apartment.cost}" %></li>
+          </ul>
+
+          <div class="card bg-light" style="max-width: 24rem;">
+            <div class="card-body">
+              <h5 class="card-title">Желаемый обмен</h5>
+              <p class="card-text">
+                <ul>
+                  <li><%= "Метраж от #{apartment.swap.range_footage.min} до #{apartment.swap.range_footage.max}" %></li>
+                  <li><%= "Комнат от #{apartment.swap.range_rooms.min} до #{apartment.swap.range_rooms.max}" %></li>
+                  <li>Подходящие районы</li>
+                  <% apartment.swap.list_districts.each do |district| %>
+                    <ul>
+                      <li><%= district %></li>
+                    </ul>
+                  <% end %>
+                  <li>Подходящие этажи</li>
+                  <% apartment.swap.list_floors.each do |floor| %>
+                    <ul>
+                      <li><%= floor %></li>
+                    </ul>
+                  <% end %>
+                  <li><%= "Стоимость от #{apartment.swap.range_cost.min} до #{apartment.swap.range_cost.max}" %></li>
+                </ul>
+              </p>
+            </div>
+          </div>
+        </p>
+        <div class="col">
+          <form action="/list_of_apartments/find_swaps/<%= key %>">
+            <button type="submit" class="btn btn-outline-dark btn-block">Найти все обмены</button>
+          </form>
+        </div>
+        <div class="col">
+          <form action="/list_of_apartments/find_swaps_street/<%= key %>">
+            <button type="submit" class="btn btn-outline-dark btn-block">Найти соседей по обмену</button>
+          </form>
+        </div>
+        <br />
+        <form action="/list_of_apartments/delete_apartment/<%= key %>" method="POST">
+          <input type="hidden" name="_method" value="DELETE" />
+          <button type="submit" class="btn btn-outline-danger btn-block">Удалить</button>
+        </form>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @list_apartments.empty? %>
+  <div class="alert alert-warning" role="alert">
+    База данных пуста
+  </div>
+<% end %>

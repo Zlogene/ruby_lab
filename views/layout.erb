@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+
+    <title>Квартиры</title>
+  </head>
+  <body>
+    <div class="container">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Инфо</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/list_of_apartments/add_apartment">Добавить квартиру</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/list_of_apartments">Список квартир</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/no_swaps">Квартиры без обмена</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/check_database">Проверка базы данных</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/statistics">Составление статистики для каждого района</a>
+        </li>
+        
+      </ul>
+    <%= yield %>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/bootstrap.bundle.js"></script>
+  </body>
+</html>
